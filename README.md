@@ -145,11 +145,4 @@ course/
 ├── requirements.txt
 └── README.md
 
-👤 Author
 
-Jatin Shrivastav
-Learning Django & Django REST Framework 🚀
-
-⭐️ Support
-
-If you find this project helpful, feel free to ⭐ star the repository!
