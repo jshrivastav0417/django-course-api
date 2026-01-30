@@ -29,29 +29,6 @@ This project supports role-based users (e.g. instructor, student) and exposes AP
 
 ---
 
-## 📁 Project Structure
-
-
-course/
-│
-├── core/                 # Django project settings
-│   ├── core/
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   └── wsgi.py
-│   └── manage.py
-│
-├── learning/             # Main application
-│   ├── models.py
-│   ├── serializers.py
-│   ├── views.py
-│   ├── urls.py
-│   └── admin.py
-│
-├── db.sqlite3
-├── requirements.txt
-└── README.md
-
 
 
 ⚙️ Setup Instructions
@@ -141,6 +118,32 @@ Course progress tracking
 API documentation (Swagger / Redoc)
 
 Docker support
+
+
+
+## 📁 Project Structure
+
+```bash
+
+course/
+│
+├── core/                 # Django project settings
+│   ├── core/
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   └── manage.py
+│
+├── learning/             # Main application
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── urls.py
+│   └── admin.py
+│
+├── db.sqlite3
+├── requirements.txt
+└── README.md
 
 👤 Author
 
