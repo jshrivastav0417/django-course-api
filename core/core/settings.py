@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "drf_spectacular",
     "django_filters",
-    # "learning",
     "learning.apps.LearningConfig",
 ]
 
@@ -71,7 +70,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = "core.wsgi.application"
+WSGI_APPLICATION = "core.core.wsgi.application"
 
 
 # Database
