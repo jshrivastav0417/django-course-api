@@ -4,6 +4,7 @@ Django settings for core project.
 
 from pathlib import Path
 import os
+import dj_database_url 
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
