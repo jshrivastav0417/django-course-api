@@ -1,24 +1,22 @@
-"""
-Django settings for core project.
-"""
-
 from pathlib import Path
 import os
 import dj_database_url
 
-# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# SECURITY
-SECRET_KEY = "django-insecure-change-this-in-production"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
 
-DEBUG = False
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com",
+]
 
+AUTH_USER_MODEL = "learning.User"
 
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -28,28 +26,32 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Third-party
     "rest_framework",
-    "django_extensions",
-    "silk",
-    "rest_framework_simplejwt",
     "rest_framework.authtoken",
+    "rest_framework_simplejwt",
     "drf_spectacular",
     "django_filters",
+    "django_extensions",
+    "silk",
+
+    "learning",
 ]
+
 
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
 
+    "silk.middleware.SilkyMiddleware",
+]
 
 ROOT_URLCONF = "core.urls"
 
@@ -70,11 +72,10 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = "core.core.wsgi.application"
+WSGI_APPLICATION = "core.wsgi.application"
 
 
-# Database (Render-compatible)
-
+# DATABASE
 DATABASES = {
     "default": dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -82,8 +83,6 @@ DATABASES = {
     )
 }
 
-
-# Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -93,28 +92,21 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
-
 USE_I18N = True
 USE_TZ = True
 
 
-# Static files
-
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
-# Login
 LOGIN_REDIRECT_URL = "/enrollments/"
 
-
-# Django REST Framework
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -123,12 +115,10 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": [
-        "django_filters.rest_framework.DjangoFilterBackend"
+        "django_filters.rest_framework.DjangoFilterBackend",
     ],
 }
 
-
-# Swagger / OpenAPI
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Course API",
@@ -136,3 +126,4 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
+
