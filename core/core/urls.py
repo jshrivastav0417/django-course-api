@@ -9,4 +9,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path("silk/", include("silk.urls", namespace="silk")),
+    path('learning/', include("learning.urls"))
 ]

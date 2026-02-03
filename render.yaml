@@ -2,10 +2,23 @@ services:
   - type: web
     name: django-course-api
     env: python
-    buildCommand: pip install -r requirements.txt
+
+    buildCommand: |
+      pip install -r requirements.txt
+      python core/manage.py collectstatic --noinput
+      python core/manage.py migrate
+
     startCommand: gunicorn core.core.wsgi:application
+
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: core.settings
+
       - key: PYTHON_VERSION
         value: 3.11
+
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+
+      - key: DEBUG
+        value: false
